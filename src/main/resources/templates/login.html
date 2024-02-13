@@ -1,0 +1,41 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>Eazy School - Best Educational Institute for your Child</title>
+    <!-- Google fonts -->
+    <link href="//fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Template CSS Style link -->
+    <link href="assets/css/style-starter.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{header :: header}">...</div>
+<section class="w3l-contact py-5" id="contact">
+    <div class="container py-md-5 py-4">
+        <div class="title-main text-center mx-auto mb-md-5 mb-4" style="max-width:500px;">
+            <h3 class="title-style">LogIn</h3>
+        </div>
+        <div class="row login-block">
+            <div class="col-md-6 login-center">
+                <form class="signin-form" method="post" th:action="@{/login}">
+                    <div class="col-md-8 login-center input-grids">
+                        <li class="alert alert-danger" role="alert" th:if="${!#strings.isEmpty(errorMessge)}"
+                            th:text="${errorMessge}"/>
+                        <input class="login-input" id="username" name="username" placeholder="Username"
+                               type="text"/>
+                        <input class="login-input" id="password" name="password" placeholder="Password"
+                               type="password"/>
+                        <input th:name="${_csrf.parameterName}" th:value="${_csrf.token}" type="hidden"/>
+                    </div>
+                    <div class="col-md-8 login-center text-start">
+                        <button class="btn btn-style btn-style-3 text-left">Log In</button>
+                        <a class="new-user text-right" href="">New User ?</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<html lang="en" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <title>Dashboard</title>
+    <!-- Google fonts -->
+    <link href="//fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Template CSS Style link -->
+    <link href="/assets/css/style-starter.css" rel="stylesheet">
+    <script src="/assets/js/jquery-3.3.1.min.js"></script>
+</head>
+<body>
+<div th:replace="~{header :: header}"></div>
+<section class="w3l-contact py-1" id="contact">
+    <div class="container py-md-1 py-1">
+        <div class="title-main text-center mx-auto mb-md-1 mb-1" style="max-width:500px;">
+            <h3 class="title-style" th:text="${'Welcome - ' + username}"></h3>
+            <p class="" th:text="${'You logged in as - ' + roles}"></p>
+        </div>
+    </div>
+</section>
+<section>
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <button aria-controls="nav-home" aria-selected="true" class="nav-link active" data-bs-target="#nav-home"
+                    data-bs-toggle="tab" id="nav-home-tab" role="tab" type="button">Home
+            </button>
+            <button aria-controls="nav-profile" aria-selected="false" class="nav-link" data-bs-target="#nav-profile"
+                    data-bs-toggle="tab" id="nav-profile-tab" role="tab" type="button">Profile
+            </button>
+            <button aria-controls="nav-contact" aria-selected="false" class="nav-link" data-bs-target="#nav-contact"
+                    data-bs-toggle="tab" id="nav-contact-tab" role="tab" type="button">Contact
+            </button>
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div aria-labelledby="nav-home-tab" class="tab-pane fade show active" id="nav-home" role="tabpanel">A</div>
+        <div aria-labelledby="nav-profile-tab" class="tab-pane fade" id="nav-profile" role="tabpanel">B</div>
+        <div aria-labelledby="nav-contact-tab" class="tab-pane fade" id="nav-contact" role="tabpanel">C</div>
+    </div>
+</section>
+</body>
+<script src="/static/assets/js/jquery-3.3.1.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('.nav-link').on('click',function(){
+            $('.nav-link').removeClass('active').attr('aria-selected',false)
+            $(this).addClass('active').attr('aria-selected',true)
+            var tabPane=$(this).data('bs-target')
+            $('.tab-pane').hide().removeClass('active').removeClass('show')
+            $(tabPane).show().addClass('active').addClass('show')
+        })
+    })
+
+</script>
+</html>
