@@ -16,6 +16,8 @@ public class ProjectSecurityConfig {
                                 .requestMatchers("/static/**").permitAll()
                                 .requestMatchers("/login").permitAll()
                                 .requestMatchers("/logout").permitAll()
+                                .requestMatchers("/getEvents").permitAll()
+                                .requestMatchers("/events").permitAll()
                                 .requestMatchers("/contact").permitAll()
                                 .requestMatchers("/about").permitAll())
                 .formLogin(loginConfigurer -> loginConfigurer.loginPage("/login")
