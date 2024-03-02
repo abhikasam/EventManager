@@ -1,4 +1,4 @@
-package com.example.EventManager.store.model;
+package com.example.EventManager.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

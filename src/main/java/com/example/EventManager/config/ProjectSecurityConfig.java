@@ -9,15 +9,19 @@ import org.springframework.security.web.SecurityFilterChain;
 public class ProjectSecurityConfig {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests((requests) ->
+        http
+                .csrf((csrf) -> csrf.ignoringRequestMatchers("/eventTypes")
+                        .ignoringRequestMatchers("/saveEvent"))
+                .authorizeHttpRequests((requests) ->
                         requests.requestMatchers("/assets/**").permitAll()
                                 .requestMatchers("/dashboard").permitAll()
                                 .requestMatchers("/", "/home").permitAll()
                                 .requestMatchers("/static/**").permitAll()
                                 .requestMatchers("/login").permitAll()
                                 .requestMatchers("/logout").permitAll()
-                                .requestMatchers("/getEvents").permitAll()
                                 .requestMatchers("/events").permitAll()
+                                .requestMatchers("/eventTypes").permitAll()
+                                .requestMatchers("/saveEvent").permitAll()
                                 .requestMatchers("/contact").permitAll()
                                 .requestMatchers("/about").permitAll())
                 .formLogin(loginConfigurer -> loginConfigurer.loginPage("/login")

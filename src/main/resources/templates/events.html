@@ -2,38 +2,48 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Error</title>
+    <title>Events</title>
     <link href="//fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
     <!-- Template CSS Style link -->
     <link href="/assets/css/style-starter.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <div th:replace="~{header :: header}"></div>
 
 <div class="container py-md-5 py-4">
     <div class="section__content section__content--p30">
-        <div class="container-fluid">
-            <div class="row m-t-25">
-                <div class="col-sm-6 col-lg-3">
-                    <a th:href="@{/getEvents}">
-                        <div class="overview-item overview-item--c3">
-                            <div class="overview__inner">
-                                <div class="overview-box clearfix">
-                                    <div class="icon">
-                                        <i class="fas fa-envelope-open-text"></i>
-                                    </div>
-                                    <div class="text">
-                                        <h2>Messages</h2>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </a>
+        <div class="row event-list">
+            <div class="col">
+                <button class="btn btn-primary open-events" type="button">Open
+                </button>
+                <button class="btn btn-primary closed-events" type="button">Closed
+                </button>
+                <div class="row">
+                    <div class="col event_details">
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    </div>
 </div>
 
 </body>
+<script>
+    $(document).ready(function(){
+            $('.open-events').click(function(){
+            $.post('/eventTypes').done(function(fragment){
+                $('.event_details').html(fragment)
+            })
+         })
+
+        $('.closed-events').click(function(){
+            $.post('/eventTypes?open=false').done(function(fragment){
+                $('.event_details').html(fragment)
+            })
+        })
+    })
+
+</script>
 </html>

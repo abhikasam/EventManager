@@ -1,5 +1,6 @@
-package com.example.EventManager.store.model;
+package com.example.EventManager.model;
 
+import jakarta.annotation.sql.DataSourceDefinition;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
