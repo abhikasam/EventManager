@@ -13,6 +13,14 @@ public class EventService {
     @Autowired
     private EventRepository eventRepository;
 
+    public Event getEvent(int eventId) {
+        var eventOptional = eventRepository.findById(eventId);
+        if (eventOptional.isEmpty()) {
+            return new Event();
+        }
+        return eventOptional.get();
+    }
+
     public List<Event> getEvents() {
         List<Event> events = new ArrayList<>();
         eventRepository.findAll().forEach(event -> events.add(event));
@@ -22,17 +30,29 @@ public class EventService {
     public List<Event> getEvents(boolean eventStatus) {
         List<Event> events = new ArrayList<>();
         eventRepository.findAll().forEach(event -> {
-            if (event.isAvailable() == eventStatus) {
+            if (event.getIsAvailable() == eventStatus) {
                 events.add(event);
             }
         });
         return events;
     }
 
-    public void saveEvent(int eventId, boolean status) {
+    public void saveEvent(Event event) {
+        eventRepository.save(event);
+    }
+
+    public void updateEvent(int eventId, boolean status) {
         var eventOptional = eventRepository.findById(eventId);
         eventOptional.ifPresent(evt -> {
-            evt.setAvailable(status);
+            evt.setIsAvailable(status);
+        });
+        eventRepository.save(eventOptional.get());
+    }
+
+    public void updateEvent(int eventId, String eventName) {
+        var eventOptional = eventRepository.findById(eventId);
+        eventOptional.ifPresent(evt -> {
+            evt.setEventName(eventName);
         });
         eventRepository.save(eventOptional.get());
     }

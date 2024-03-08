@@ -11,7 +11,9 @@ public class ProjectSecurityConfig {
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf((csrf) -> csrf.ignoringRequestMatchers("/eventTypes")
-                        .ignoringRequestMatchers("/saveEvent"))
+                        .ignoringRequestMatchers("/saveEvent")
+                        .ignoringRequestMatchers("/updateEvent")
+                )
                 .authorizeHttpRequests((requests) ->
                         requests.requestMatchers("/assets/**").permitAll()
                                 .requestMatchers("/dashboard").permitAll()
@@ -22,6 +24,8 @@ public class ProjectSecurityConfig {
                                 .requestMatchers("/events").permitAll()
                                 .requestMatchers("/eventTypes").permitAll()
                                 .requestMatchers("/saveEvent").permitAll()
+                                .requestMatchers("/updateEvent").permitAll()
+                                .requestMatchers("/editEvent/**").permitAll()
                                 .requestMatchers("/contact").permitAll()
                                 .requestMatchers("/about").permitAll())
                 .formLogin(loginConfigurer -> loginConfigurer.loginPage("/login")

@@ -1,0 +1,58 @@
+<html lang="en" xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <link href="//fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Template CSS Style link -->
+    <link href="/assets/css/style-starter.css" rel="stylesheet">
+</head>
+<body>
+<table class="table table-striped table-hover">
+    <thead class="table-dark">
+    <tr>
+        <th scope="col">Event Id</th>
+        <th scope="col">Event Name</th>
+        <th scope="col">Available</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="event: ${events}">
+        <td th:text="${event.eventId}"></td>
+        <td th:text="${event.eventName}"></td>
+        <td th:text="${event.isAvailable}"></td>
+        <td>
+            <a class="btn btn-style open-close"
+               th:attr="data-avlbl=${!event.isAvailable},data-eventId=${event.eventId}"
+               th:text="${event.isAvailable?'Close':'Open'}"
+            ></a>
+            <a class="btn btn-style btn-success edit-event"
+               th:attr="data-eventId=${event.eventId}"
+               th:href="@{/editEvent/{eventId}(eventId=${event.eventId})}"
+            >Edit</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+<script>
+    $(document).ready(function(){
+        $('.open-close').click(function(){
+            var status=$(this).data('avlbl')
+            var eventId=$(this).data('eventid')
+            $.post('/updateEvent?eventId='+eventId+'&open='+status).done(function(fragment){
+                $('.event_details').html(fragment)
+            })
+        })
+<!--        $('.edit-event').click(function(){-->
+<!--            var eventId=$(this).data('eventid')-->
+<!--            $.post('/editEvent/'+eventId).done(function(fragment){-->
+<!--                $('.event_details').html(fragment)-->
+<!--            })-->
+<!--        });-->
+    })
+
+</script>
+</html>

@@ -1,0 +1,45 @@
+<html lang="en" xmlns:sec="http://thymeleaf.org/thymeleaf-extras-springsecurity6"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Events</title>
+    <link href="//fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Template CSS Style link -->
+    <link href="/assets/css/style-starter.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<div th:if="event.eventId==0" th:replace="~{header :: header}"></div>
+<body>
+<div class="container mt-3">
+    <ul>
+        <li class="alert alert-danger" role="alert" th:each="error : ${#fields.errors('event.*')}" th:text="${error}"/>
+    </ul>
+    <form action="/saveEvent" method="post" th:object="${event}">
+        <input th:field="*{eventId}" type="hidden">
+        <div class="row align-items-center">
+            <div class="col-2 text-end">
+                <label>Event Name</label>
+            </div>
+            <div class="col-3">
+                <input class="form-control" th:field="*{eventName}" type="text">
+            </div>
+        </div>
+        <div class="row align-items-center">
+            <div class="col-2 text-end">
+                <label>Is Available</label>
+            </div>
+            <div class="col-6">
+                <input class="form-check-input" th:field="*{isAvailable}" type="checkbox">
+            </div>
+        </div>
+        <div class="row align-items-center">
+            <div class="col-1"></div>
+            <div class="col-2">
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
